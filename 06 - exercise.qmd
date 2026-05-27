@@ -1,0 +1,100 @@
+---
+title: "6 - exercise"
+format: 
+  html: 
+    embed-resources: true
+editor: visual
+---
+
+You're going to "nowcast" your own Google trends search. At the end of the day, we want a time series plot of interest in your search term and a forecast for the next 12 months of interest in your product (or other search term). Here we go.
+
+### 1. Load libraries
+
+Insert a code chunk that loads `gtrendsR`, `tidymodels`, `modeltime`, `tidyverse`, `timetk`, and `lubridate`.
+
+```{r}
+#| label: load-packages
+#| warning: false
+#| message: false
+
+
+```
+
+### 2. Grab Google Trends data
+
+Create a `gtrends_list` for a search term you'd like to investigate. Up to you what that search term is. Assuming you're forecasting for a US-based firm selling in the US, set your parameters for `"US"` and `"all"` for time.
+
+```{r}
+#| label: gtrends
+#| warning: false
+
+
+```
+
+IMPORTANT NOTE: Sometimes, for unknown reasons, Google trends data will report "hits" as `chr`, a character variable, instead of an `int` or numerical variable. If this happens, you'll have to convert the character data to numbers so you can visualize and forecast. Hint:
+
+```{r}
+#| label: coerce-hits
+#| eval: false
+
+# gtrends_list$interest_over_time$hits <- as.numeric(gtrends_list$interest_over_time$hits)
+```
+
+You can also go directly to [Google Trends](https://trends.google.com/trends/), run an inquiry, and download the data as a csv file. Save the csv file and upload it to your project. Any of these methods will work.
+
+### 3. Prep table for visualization
+
+Pluck `interest_over_time` into a new tibble called `gtrends_tbl`. Drop zeros, impute values, and visualize your smoothed data. You should wind up with both `gtrends_tbl` and a plotly visualization of the time series.
+
+```{r}
+#| label: clean-visualize
+#| warning: false
+
+
+```
+
+### 4. Split data into training and test sets
+
+Create `splits` to separate the data into training and test sets, with the test set being the last year. Plot both subsets.
+
+```{r}
+#| label: split
+#| warning: false
+
+
+```
+
+### 5. Train a model on your data
+
+Let's use the Prophet model to train, and eventually forecast, interest into the future. The first step is to "fit" the model. Create `model_fit_prophet`.
+
+```{r}
+#| label: prophet
+#| warning: false
+
+
+```
+
+### 6. Show the fit
+
+Create a `modeltime_table` called `model_tbl`. Obviously, your table will only have one model in it, since we're only using Prophet.
+
+Now, calibrate and plot how well Prophet performed. Use an 80% confidence interval.
+
+```{r}
+#| label: calibrate
+#| warning: false
+
+
+```
+
+### 7. Refit and forecast 12 months ahead
+
+Refit the data so the entire time series is used, then forecast 12 months into the future. Plot the forecast. Use a 90% confidence interval this time - the bands will be wider, but management doesn't like surprises.
+
+```{r}
+#| label: refit-forecast
+#| warning: false
+
+
+```
